@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -51,7 +50,17 @@ export default function Financial() {
       .order('transaction_date', { ascending: false });
 
     if (data) {
-      setTransactions(data);
+      // Convert the data to match our Transaction interface
+      const formattedTransactions: Transaction[] = data.map(item => ({
+        id: item.id,
+        description: item.description,
+        amount: item.amount,
+        type: item.type as 'income' | 'expense', // Type assertion here
+        category: item.category,
+        transaction_date: item.transaction_date,
+        created_at: item.created_at,
+      }));
+      setTransactions(formattedTransactions);
     }
     setLoading(false);
   };
