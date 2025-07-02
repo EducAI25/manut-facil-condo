@@ -22,10 +22,15 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
     name: editingAsset?.name || '',
     description: editingAsset?.description || '',
     category: editingAsset?.category || '',
+    tipo_ativo: editingAsset?.tipo_ativo || '',
     location: editingAsset?.location || '',
+    numero_serie: editingAsset?.numero_serie || '',
+    fabricante: editingAsset?.fabricante || '',
+    modelo: editingAsset?.modelo || '',
     acquisition_date: editingAsset?.acquisition_date || '',
     acquisition_value: editingAsset?.acquisition_value?.toString() || '',
     current_value: editingAsset?.current_value?.toString() || '',
+    vida_util_anos: editingAsset?.vida_util_anos?.toString() || '',
     condition: editingAsset?.condition || 'good',
     warranty_expiry: editingAsset?.warranty_expiry || '',
     maintenance_schedule: editingAsset?.maintenance_schedule || '',
@@ -41,6 +46,7 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
       ...formData,
       acquisition_value: formData.acquisition_value ? parseFloat(formData.acquisition_value) : undefined,
       current_value: formData.current_value ? parseFloat(formData.current_value) : undefined,
+      vida_util_anos: formData.vida_util_anos ? parseInt(formData.vida_util_anos) : undefined,
     };
 
     if (editingAsset) {
@@ -54,10 +60,15 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
         name: '',
         description: '',
         category: '',
+        tipo_ativo: '',
         location: '',
+        numero_serie: '',
+        fabricante: '',
+        modelo: '',
         acquisition_date: '',
         acquisition_value: '',
         current_value: '',
+        vida_util_anos: '',
         condition: 'good',
         warranty_expiry: '',
         maintenance_schedule: '',
@@ -139,6 +150,23 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
                 />
               </div>
               <div className="space-y-2">
+                <Label>Tipo de Ativo</Label>
+                <Select value={formData.tipo_ativo} onValueChange={(value) => handleSelectChange('tipo_ativo', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="equipamento_eletrico">Equipamento Elétrico</SelectItem>
+                    <SelectItem value="equipamento_hidraulico">Equipamento Hidráulico</SelectItem>
+                    <SelectItem value="veiculo">Veículo</SelectItem>
+                    <SelectItem value="mobiliario">Mobiliário</SelectItem>
+                    <SelectItem value="estrutura">Estrutura</SelectItem>
+                    <SelectItem value="seguranca">Segurança</SelectItem>
+                    <SelectItem value="outro">Outro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="category">Categoria</Label>
                 <Input
                   id="category"
@@ -150,13 +178,49 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="location">Localização</Label>
+                <Label htmlFor="location">Localização no Condomínio</Label>
                 <Input
                   id="location"
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  placeholder="Ex: Salão de Festas, Portaria"
+                  placeholder="Ex: Casa de Máquinas, Hall Social Torre B"
+                  maxLength={150}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="numero_serie">Número de Série/Identificação</Label>
+                <Input
+                  id="numero_serie"
+                  name="numero_serie"
+                  value={formData.numero_serie}
+                  onChange={handleChange}
+                  placeholder="Código único de identificação"
+                  maxLength={50}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fabricante">Fabricante</Label>
+                <Input
+                  id="fabricante"
+                  name="fabricante"
+                  value={formData.fabricante}
+                  onChange={handleChange}
+                  maxLength={100}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="modelo">Modelo</Label>
+                <Input
+                  id="modelo"
+                  name="modelo"
+                  value={formData.modelo}
+                  onChange={handleChange}
+                  maxLength={100}
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -205,6 +269,18 @@ export function AssetForm({ editingAsset, onClose }: AssetFormProps = {}) {
                   value={formData.current_value}
                   onChange={handleChange}
                   placeholder="0.00"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="vida_util_anos">Vida Útil Estimada (anos)</Label>
+                <Input
+                  id="vida_util_anos"
+                  name="vida_util_anos"
+                  type="number"
+                  value={formData.vida_util_anos}
+                  onChange={handleChange}
+                  placeholder="Ex: 10"
+                  required
                 />
               </div>
               <div className="space-y-2">

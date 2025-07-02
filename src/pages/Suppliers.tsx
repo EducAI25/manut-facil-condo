@@ -1,4 +1,12 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SupplierFormExpanded } from '@/components/forms/SupplierFormExpanded';
+
+export function Suppliers() {
+  return (
+    <div className="container mx-auto py-6">
+      <SupplierFormExpanded />
+    </div>
+  );
+}
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";

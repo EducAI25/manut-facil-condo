@@ -9,13 +9,19 @@ export interface Asset {
   name: string;
   description?: string | null;
   category: string;
+  tipo_ativo?: string | null;
   location?: string | null;
+  numero_serie?: string | null;
+  fabricante?: string | null;
+  modelo?: string | null;
   acquisition_date?: string | null;
   acquisition_value?: number | null;
   current_value?: number | null;
-  condition: string; // Changed from union type to string
+  vida_util_anos?: number | null;
+  condition: string;
   warranty_expiry?: string | null;
   maintenance_schedule?: string | null;
+  anexos?: string[] | null;
   created_at: string;
   updated_at: string;
 }

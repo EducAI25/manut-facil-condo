@@ -1,4 +1,25 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ChamadoForm } from '@/components/forms/ChamadoForm';
+import { ManutencaoPreventivaForm } from '@/components/forms/ManutencaoPreventivaForm';
+
+export function Maintenance() {
+  return (
+    <div className="container mx-auto py-6">
+      <Tabs defaultValue="chamados" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="chamados">Abrir Chamados</TabsTrigger>
+          <TabsTrigger value="preventiva">Manutenção Preventiva</TabsTrigger>
+        </TabsList>
+        <TabsContent value="chamados">
+          <ChamadoForm />
+        </TabsContent>
+        <TabsContent value="preventiva">
+          <ManutencaoPreventivaForm />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
