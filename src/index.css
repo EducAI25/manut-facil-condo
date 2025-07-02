@@ -50,6 +50,7 @@
     --gradient-light: linear-gradient(135deg, hsl(0 0% 100%), hsl(240 5% 96%));
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(240 5% 98%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(240 10% 95%) 0%, hsl(0 0% 100%) 50%, hsl(217 91% 60% / 0.05) 100%);
+    --gradient-dark-auth: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(220 13% 18%) 50%, hsl(220 9% 12%) 100%);
 
     --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.15);
     --shadow-card: 0 4px 20px hsl(217 91% 60% / 0.1);
@@ -125,4 +126,9 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* Classe para o background escuro da página de login */
+.bg-gradient-dark-auth {
+  background: var(--gradient-dark-auth);
 }

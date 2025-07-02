@@ -6,22 +6,34 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     const { error } = await signIn(email, password);
     
-    if (!error) {
+    if (error) {
+      console.log('Login error:', error);
+      if (error.message.includes('Invalid login credentials')) {
+        setError('E-mail ou senha incorretos. Verifique suas credenciais e tente novamente.');
+      } else if (error.message.includes('Email not confirmed')) {
+        setError('Confirme seu e-mail antes de fazer login.');
+      } else {
+        setError(error.message || 'Erro no login. Tente novamente.');
+      }
+    } else {
       navigate('/');
     }
     
@@ -29,7 +41,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-hero p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-dark-auth p-4">
       <Card className="w-full max-w-md shadow-card">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
@@ -43,6 +55,13 @@ export default function Auth() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">E-mail</Label>
@@ -80,9 +99,12 @@ export default function Auth() {
             <div className="text-sm text-muted-foreground space-y-2">
               <p className="font-medium">Contas de teste:</p>
               <div className="space-y-1">
-                <p><strong>Admin:</strong> admin@mirtilo.com / jayafcg3</p>
-                <p><strong>Usuário:</strong> usuario@mirtilo.com / 123456***</p>
+                <p><strong>Admin:</strong> admin@mirtilo.com / admin123</p>
+                <p><strong>Usuário:</strong> usuario@mirtilo.com / user123</p>
               </div>
+              <p className="text-xs mt-2 text-orange-600">
+                <strong>Nota:</strong> Se as contas de teste não funcionarem, você precisa criá-las no painel do Supabase Auth.
+              </p>
             </div>
           </div>
         </CardContent>
