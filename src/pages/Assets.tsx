@@ -12,6 +12,8 @@ import {
   ExternalLink,
   Filter
 } from "lucide-react";
+import { AssetForm } from "@/components/forms/AssetForm";
+import { useState } from "react";
 
 const assets = [
   {
@@ -75,6 +77,8 @@ const assets = [
 const categories = ["Todos", "Vertical", "Hidráulica", "Segurança", "Elétrica", "Estrutural"];
 
 export default function Assets() {
+  const [showAssetForm, setShowAssetForm] = useState(false);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "ativo":
@@ -109,11 +113,18 @@ export default function Assets() {
           <h1 className="text-3xl font-bold text-foreground">Gestão de Ativos</h1>
           <p className="text-muted-foreground">Controle completo de equipamentos e infraestrutura</p>
         </div>
-        <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
+        <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300" onClick={() => setShowAssetForm(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Novo Ativo
         </Button>
       </div>
+
+      {/* Formulário de novo ativo */}
+      {showAssetForm && (
+        <div className="bg-card p-6 rounded-lg shadow-md border border-border">
+          <AssetForm onClose={() => setShowAssetForm(false)} />
+        </div>
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
