@@ -41,15 +41,13 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-dark-auth p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-navy p-4">
       <Card className="w-full max-w-md shadow-card">
         <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="h-16 w-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow animate-float">
-              <span className="text-4xl">🫐</span>
-            </div>
+          <div className="flex justify-center items-center gap-3 mb-4">
+            <span className="text-4xl" style={{ color: 'hsl(217 91% 25%)' }}>🫐</span>
+            <h1 className="text-3xl font-poppins font-black" style={{ color: 'hsl(217 91% 25%)' }}>Mirtilo</h1>
           </div>
-          <CardTitle className="text-2xl font-bold">Mirtilo</CardTitle>
           <CardDescription>
             Sistema de Gestão de Condomínios
           </CardDescription>
@@ -94,19 +92,6 @@ export default function Auth() {
               Entrar
             </Button>
           </form>
-          
-          <div className="mt-6 pt-6 border-t border-border">
-            <div className="text-sm text-muted-foreground space-y-2">
-              <p className="font-medium">Contas de teste:</p>
-              <div className="space-y-1">
-                <p><strong>Admin:</strong> admin@mirtilo.com / admin123</p>
-                <p><strong>Usuário:</strong> usuario@mirtilo.com / user123</p>
-              </div>
-              <p className="text-xs mt-2 text-orange-600">
-                <strong>Nota:</strong> Se as contas de teste não funcionarem, você precisa criá-las no painel do Supabase Auth.
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>

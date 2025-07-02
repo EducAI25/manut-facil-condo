@@ -34,11 +34,9 @@ export function Layout({ children }: LayoutProps) {
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-muted-foreground hover:text-foreground lg:hidden" />
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow animate-float">
-                  <span className="text-2xl">🫐</span>
-                </div>
+                <span className="text-2xl" style={{ color: 'hsl(217 91% 25%)' }}>🫐</span>
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">Mirtilo</h1>
+                  <h1 className="text-xl font-poppins font-black" style={{ color: 'hsl(217 91% 25%)' }}>Mirtilo</h1>
                   <p className="text-xs text-muted-foreground">Gestão de Condomínios</p>
                 </div>
               </div>
@@ -68,7 +66,7 @@ export function Layout({ children }: LayoutProps) {
           </header>
           
           {/* Main Content */}
-          <main className="flex-1 p-4 sm:p-6">
+          <main className="flex-1 p-4 sm:p-6 bg-gradient-navy">
             {children}
           </main>
         </div>

@@ -19,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'poppins': ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -84,6 +87,7 @@ export default {
 				'gradient-dark': 'var(--gradient-dark)',
 				'gradient-card': 'var(--gradient-card)',
 				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-navy': 'var(--gradient-navy)',
 				'gradient-dark-auth': 'var(--gradient-dark-auth)'
 			},
 			boxShadow: {
