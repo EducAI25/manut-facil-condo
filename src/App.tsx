@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import Financial from "./pages/Financial";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Support from "./pages/Support";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +43,7 @@ const App = () => (
                       <Route path="/common-areas" element={<CommonAreas />} />
                       <Route path="/financial" element={<Financial />} />
                       <Route path="/profile" element={<Profile />} />
+                      <Route path="/support" element={<Support />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Layout>

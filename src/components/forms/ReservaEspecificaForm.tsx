@@ -9,13 +9,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useReservations } from '@/hooks/useReservations';
 import { useAuth } from '@/hooks/useAuth';
 import { Calendar, UtensilsCrossed, Flame } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 interface ReservaFormProps {
-  tipoArea: 'salao' | 'churrasqueira' | 'gourmet';
+  tipoArea: 'salao' | 'churrasqueira' | 'gourmet' | 'quadra';
 }
 
 function ReservaForm({ tipoArea }: ReservaFormProps) {
-  const { createReservation } = useReservations();
+  const { createReservation, commonAreas, loading } = useReservations();
   const { user } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -37,8 +38,29 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
+    if (loading || !commonAreas.length) {
+      toast({ title: 'Erro', description: 'Áreas comuns ainda não carregadas. Aguarde e tente novamente.', variant: 'destructive' });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Buscar o ID real da área comum pelo nome
+    const area = commonAreas.find(a =>
+      (tipoArea === 'salao' && a.name.toLowerCase().includes('salão')) ||
+      (tipoArea === 'churrasqueira' && a.name.toLowerCase().includes('churrasqueira')) ||
+      (tipoArea === 'gourmet' && a.name.toLowerCase().includes('gourmet')) ||
+      (tipoArea === 'quadra' && a.name.toLowerCase().includes('quadra'))
+    );
+    const common_area_id = area?.id;
+
+    if (!common_area_id) {
+      toast({ title: 'Erro', description: 'Área comum não encontrada', variant: 'destructive' });
+      setIsSubmitting(false);
+      return;
+    }
+
     const reservationData = {
-      common_area_id: tipoArea, // Seria o ID real da área
+      common_area_id,
       start_datetime: formData.start_datetime,
       end_datetime: formData.end_datetime,
       purpose: formData.purpose,
@@ -88,6 +110,7 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
       case 'salao': return 'Reserva do Salão de Festas';
       case 'churrasqueira': return 'Reserva da Churrasqueira';
       case 'gourmet': return 'Reserva do Espaço Gourmet';
+      case 'quadra': return 'Reserva da Quadra Poliesportiva';
       default: return 'Nova Reserva';
     }
   };
@@ -97,6 +120,7 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
       case 'salao': return <Calendar className="h-5 w-5" />;
       case 'churrasqueira': return <Flame className="h-5 w-5" />;
       case 'gourmet': return <UtensilsCrossed className="h-5 w-5" />;
+      case 'quadra': return <Calendar className="h-5 w-5" />;
       default: return <Calendar className="h-5 w-5" />;
     }
   };
@@ -106,6 +130,7 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
       case 'salao': return 'Li e concordo com o regulamento do Salão de Festas do condomínio.';
       case 'churrasqueira': return 'Li e concordo com o regulamento da Churrasqueira do condomínio.';
       case 'gourmet': return 'Li e concordo com o regulamento do Espaço Gourmet do condomínio.';
+      case 'quadra': return 'Li e concordo com o regulamento da Quadra Poliesportiva do condomínio.';
       default: return 'Li e concordo com o regulamento da área comum.';
     }
   };
@@ -184,7 +209,7 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
                   value={formData.purpose}
                   onChange={handleChange}
                   maxLength={100}
-                  placeholder={tipoArea === 'salao' ? 'Ex: Aniversário infantil' : tipoArea === 'churrasqueira' ? 'Ex: Churrasco com amigos' : 'Ex: Jantar de aniversário'}
+                  placeholder={tipoArea === 'salao' ? 'Ex: Aniversário infantil' : tipoArea === 'churrasqueira' ? 'Ex: Churrasco com amigos' : tipoArea === 'quadra' ? 'Ex: Evento esportivo' : 'Ex: Jantar de aniversário'}
                   required
                 />
               </div>
@@ -301,7 +326,7 @@ function ReservaForm({ tipoArea }: ReservaFormProps) {
             </div>
           </div>
 
-          <Button type="submit" disabled={isSubmitting || !formData.concorda_regras} className="w-full">
+          <Button type="submit" disabled={isSubmitting || !formData.concorda_regras || loading || !commonAreas.length} className="w-full">
             {isSubmitting ? 'Realizando Reserva...' : 'Confirmar Reserva'}
           </Button>
         </form>
@@ -314,10 +339,11 @@ export function ReservaEspecificaForm() {
   return (
     <div className="space-y-6">
       <Tabs defaultValue="salao" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="salao">Salão de Festas</TabsTrigger>
           <TabsTrigger value="churrasqueira">Churrasqueira</TabsTrigger>
           <TabsTrigger value="gourmet">Espaço Gourmet</TabsTrigger>
+          <TabsTrigger value="quadra">Quadra Poliesportiva</TabsTrigger>
         </TabsList>
         <TabsContent value="salao">
           <ReservaForm tipoArea="salao" />
@@ -327,6 +353,9 @@ export function ReservaEspecificaForm() {
         </TabsContent>
         <TabsContent value="gourmet">
           <ReservaForm tipoArea="gourmet" />
+        </TabsContent>
+        <TabsContent value="quadra">
+          <ReservaForm tipoArea="quadra" />
         </TabsContent>
       </Tabs>
     </div>
