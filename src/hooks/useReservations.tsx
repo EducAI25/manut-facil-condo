@@ -24,15 +24,15 @@ export interface Reservation {
   common_area_id: string;
   start_datetime: string;
   end_datetime: string;
-  status: 'pending' | 'approved' | 'rejected' | 'cancelled' | 'completed';
-  purpose?: string;
-  expected_guests?: number;
-  total_cost?: number;
-  payment_status: 'pending' | 'paid' | 'refunded';
-  special_requests?: string;
-  approved_by?: string;
-  approved_at?: string;
-  notes?: string;
+  status: string; // Changed from union type to string
+  purpose?: string | null;
+  expected_guests?: number | null;
+  total_cost?: number | null;
+  payment_status: string; // Changed from union type to string
+  special_requests?: string | null;
+  approved_by?: string | null;
+  approved_at?: string | null;
+  notes?: string | null;
   created_at: string;
   updated_at: string;
   common_areas?: CommonArea;
@@ -102,7 +102,7 @@ export const useReservations = () => {
 
       if (error) throw error;
 
-      setReservations(prev => [data, ...prev]);
+      setReservations(prev => [data as Reservation, ...prev]);
       toast({
         title: 'Sucesso',
         description: 'Reserva criada com sucesso',
@@ -136,7 +136,7 @@ export const useReservations = () => {
       if (error) throw error;
 
       setReservations(prev => prev.map(reservation => 
-        reservation.id === id ? { ...reservation, ...data } : reservation
+        reservation.id === id ? { ...reservation, ...data } as Reservation : reservation
       ));
       toast({
         title: 'Sucesso',

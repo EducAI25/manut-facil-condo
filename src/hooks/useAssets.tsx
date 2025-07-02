@@ -7,15 +7,15 @@ export interface Asset {
   id: string;
   user_id: string;
   name: string;
-  description?: string;
+  description?: string | null;
   category: string;
-  location?: string;
-  acquisition_date?: string;
-  acquisition_value?: number;
-  current_value?: number;
-  condition: 'excellent' | 'good' | 'fair' | 'poor';
-  warranty_expiry?: string;
-  maintenance_schedule?: string;
+  location?: string | null;
+  acquisition_date?: string | null;
+  acquisition_value?: number | null;
+  current_value?: number | null;
+  condition: string; // Changed from union type to string
+  warranty_expiry?: string | null;
+  maintenance_schedule?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -87,7 +87,7 @@ export const useAssets = () => {
       if (error) throw error;
 
       setAssets(prev => prev.map(asset => 
-        asset.id === id ? { ...asset, ...data } : asset
+        asset.id === id ? { ...asset, ...data } as Asset : asset
       ));
       toast({
         title: 'Sucesso',

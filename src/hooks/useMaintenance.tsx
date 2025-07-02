@@ -6,20 +6,20 @@ import { toast } from './use-toast';
 export interface MaintenanceRequest {
   id: string;
   user_id: string;
-  asset_id?: string;
+  asset_id?: string | null;
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
-  status: 'open' | 'in_progress' | 'completed' | 'cancelled';
+  priority: string; // Changed from union type to string
+  status: string; // Changed from union type to string
   category: string;
-  location?: string;
+  location?: string | null;
   requested_date: string;
-  scheduled_date?: string;
-  completed_date?: string;
-  assigned_to?: string;
-  estimated_cost?: number;
-  actual_cost?: number;
-  notes?: string;
+  scheduled_date?: string | null;
+  completed_date?: string | null;
+  assigned_to?: string | null;
+  estimated_cost?: number | null;
+  actual_cost?: number | null;
+  notes?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -62,7 +62,7 @@ export const useMaintenance = () => {
 
       if (error) throw error;
 
-      setRequests(prev => [data, ...prev]);
+      setRequests(prev => [data as MaintenanceRequest, ...prev]);
       toast({
         title: 'Sucesso',
         description: 'Chamado aberto com sucesso',
@@ -91,7 +91,7 @@ export const useMaintenance = () => {
       if (error) throw error;
 
       setRequests(prev => prev.map(request => 
-        request.id === id ? { ...request, ...data } : request
+        request.id === id ? { ...request, ...data } as MaintenanceRequest : request
       ));
       toast({
         title: 'Sucesso',
