@@ -24,15 +24,22 @@ export interface Reservation {
   common_area_id: string;
   start_datetime: string;
   end_datetime: string;
-  status: string; // Changed from union type to string
+  status: string;
   purpose?: string | null;
   expected_guests?: number | null;
   total_cost?: number | null;
-  payment_status: string; // Changed from union type to string
+  payment_status: string;
   special_requests?: string | null;
   approved_by?: string | null;
   approved_at?: string | null;
   notes?: string | null;
+  necessita_limpeza?: boolean | null;
+  necessita_mobiliario?: boolean | null;
+  especificar_mobiliario?: string | null;
+  concorda_regras?: boolean | null;
+  tipo_area?: string | null;
+  nome_responsavel?: string | null;
+  unidade_responsavel?: string | null;
   created_at: string;
   updated_at: string;
   common_areas?: CommonArea;
@@ -66,7 +73,7 @@ export const useReservations = () => {
         .select(`
           *,
           common_areas (
-            id, name, description, capacity, hourly_rate, daily_rate
+            id, name, description, capacity, hourly_rate, daily_rate, is_active, requires_approval, advance_booking_days, max_booking_duration_hours
           )
         `)
         .order('start_datetime', { ascending: false });
@@ -95,7 +102,7 @@ export const useReservations = () => {
         .select(`
           *,
           common_areas (
-            id, name, description, capacity, hourly_rate, daily_rate
+            id, name, description, capacity, hourly_rate, daily_rate, is_active, requires_approval, advance_booking_days, max_booking_duration_hours
           )
         `)
         .single();
@@ -128,7 +135,7 @@ export const useReservations = () => {
         .select(`
           *,
           common_areas (
-            id, name, description, capacity, hourly_rate, daily_rate
+            id, name, description, capacity, hourly_rate, daily_rate, is_active, requires_approval, advance_booking_days, max_booking_duration_hours
           )
         `)
         .single();
