@@ -20,41 +20,34 @@ import Support from "./pages/Support";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/*"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Routes>
-                      <Route path="/" element={<Index />} />
-                      <Route path="/assets" element={<Assets />} />
-                      <Route path="/maintenance" element={<Maintenance />} />
-                      <Route path="/suppliers" element={<Suppliers />} />
-                      <Route path="/reports" element={<Reports />} />
-                      <Route path="/common-areas" element={<CommonAreas />} />
-                      <Route path="/financial" element={<Financial />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/support" element={<Support />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/auth" element={<Auth />} />
+              <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                <Route index element={<Index />} />
+                <Route path="assets" element={<Assets />} />
+                <Route path="maintenance" element={<Maintenance />} />
+                <Route path="suppliers" element={<Suppliers />} />
+                <Route path="reports" element={<Reports />} />
+                <Route path="common-areas" element={<CommonAreas />} />
+                <Route path="financial" element={<Financial />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="support" element={<Support />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Toaster />
+            <Sonner />
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

@@ -1,7 +1,7 @@
-import { Dashboard } from "@/components/Dashboard";
+import Auth from "./Auth";
 
 const Index = () => {
-  return <Dashboard />;
+  return <Auth />;
 };
 
 export default Index;
