@@ -68,9 +68,9 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border p-4">
         <div className="flex items-center gap-3">
-          <span className="text-lg" style={{ color: 'hsl(217 91% 25%)' }}>🫐</span>
+          <span className="text-lg text-primary-light">🫐</span>
           <div>
-            <h2 className="font-poppins font-black text-sidebar-foreground" style={{ color: 'hsl(217 91% 25%)' }}>Mirtilo</h2>
+            <h2 className="font-poppins font-black text-primary">Mirtilo</h2>
             <p className="text-xs text-sidebar-foreground/70">Gestão de Condomínios</p>
           </div>
         </div>

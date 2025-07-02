@@ -9,6 +9,111 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      assets: {
+        Row: {
+          acquisition_date: string | null
+          acquisition_value: number | null
+          category: string
+          condition: string | null
+          created_at: string
+          current_value: number | null
+          description: string | null
+          id: string
+          location: string | null
+          maintenance_schedule: string | null
+          name: string
+          updated_at: string
+          user_id: string
+          warranty_expiry: string | null
+        }
+        Insert: {
+          acquisition_date?: string | null
+          acquisition_value?: number | null
+          category: string
+          condition?: string | null
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          id?: string
+          location?: string | null
+          maintenance_schedule?: string | null
+          name: string
+          updated_at?: string
+          user_id: string
+          warranty_expiry?: string | null
+        }
+        Update: {
+          acquisition_date?: string | null
+          acquisition_value?: number | null
+          category?: string
+          condition?: string | null
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          id?: string
+          location?: string | null
+          maintenance_schedule?: string | null
+          name?: string
+          updated_at?: string
+          user_id?: string
+          warranty_expiry?: string | null
+        }
+        Relationships: []
+      }
+      common_areas: {
+        Row: {
+          advance_booking_days: number | null
+          amenities: string[] | null
+          capacity: number | null
+          created_at: string
+          daily_rate: number | null
+          description: string | null
+          hourly_rate: number | null
+          id: string
+          is_active: boolean | null
+          max_booking_duration_hours: number | null
+          name: string
+          requires_approval: boolean | null
+          rules: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          advance_booking_days?: number | null
+          amenities?: string[] | null
+          capacity?: number | null
+          created_at?: string
+          daily_rate?: number | null
+          description?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          max_booking_duration_hours?: number | null
+          name: string
+          requires_approval?: boolean | null
+          rules?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          advance_booking_days?: number | null
+          amenities?: string[] | null
+          capacity?: number | null
+          created_at?: string
+          daily_rate?: number | null
+          description?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_active?: boolean | null
+          max_booking_duration_hours?: number | null
+          name?: string
+          requires_approval?: boolean | null
+          rules?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       financial_transactions: {
         Row: {
           amount: number
@@ -45,6 +150,77 @@ export type Database = {
         }
         Relationships: []
       }
+      maintenance_requests: {
+        Row: {
+          actual_cost: number | null
+          asset_id: string | null
+          assigned_to: string | null
+          category: string
+          completed_date: string | null
+          created_at: string
+          description: string
+          estimated_cost: number | null
+          id: string
+          location: string | null
+          notes: string | null
+          priority: string | null
+          requested_date: string
+          scheduled_date: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          actual_cost?: number | null
+          asset_id?: string | null
+          assigned_to?: string | null
+          category: string
+          completed_date?: string | null
+          created_at?: string
+          description: string
+          estimated_cost?: number | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          priority?: string | null
+          requested_date?: string
+          scheduled_date?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          actual_cost?: number | null
+          asset_id?: string | null
+          assigned_to?: string | null
+          category?: string
+          completed_date?: string | null
+          created_at?: string
+          description?: string
+          estimated_cost?: number | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          priority?: string | null
+          requested_date?: string
+          scheduled_date?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_requests_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -72,6 +248,134 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      reservations: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          common_area_id: string
+          created_at: string
+          end_datetime: string
+          expected_guests: number | null
+          id: string
+          notes: string | null
+          payment_status: string | null
+          purpose: string | null
+          special_requests: string | null
+          start_datetime: string
+          status: string | null
+          total_cost: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          common_area_id: string
+          created_at?: string
+          end_datetime: string
+          expected_guests?: number | null
+          id?: string
+          notes?: string | null
+          payment_status?: string | null
+          purpose?: string | null
+          special_requests?: string | null
+          start_datetime: string
+          status?: string | null
+          total_cost?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          common_area_id?: string
+          created_at?: string
+          end_datetime?: string
+          expected_guests?: number | null
+          id?: string
+          notes?: string | null
+          payment_status?: string | null
+          purpose?: string | null
+          special_requests?: string | null
+          start_datetime?: string
+          status?: string | null
+          total_cost?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_common_area_id_fkey"
+            columns: ["common_area_id"]
+            isOneToOne: false
+            referencedRelation: "common_areas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          address: string | null
+          category: string
+          city: string | null
+          cnpj: string | null
+          company_name: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          notes: string | null
+          phone: string | null
+          rating: number | null
+          services: string[] | null
+          state: string | null
+          updated_at: string
+          user_id: string
+          zip_code: string | null
+        }
+        Insert: {
+          address?: string | null
+          category: string
+          city?: string | null
+          cnpj?: string | null
+          company_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          rating?: number | null
+          services?: string[] | null
+          state?: string | null
+          updated_at?: string
+          user_id: string
+          zip_code?: string | null
+        }
+        Update: {
+          address?: string | null
+          category?: string
+          city?: string | null
+          cnpj?: string | null
+          company_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          rating?: number | null
+          services?: string[] | null
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+          zip_code?: string | null
         }
         Relationships: []
       }

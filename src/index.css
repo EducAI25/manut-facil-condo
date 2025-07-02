@@ -22,6 +22,7 @@
     --primary-foreground: 0 0% 98%;
     --primary-muted: 217 70% 20%;
     --primary-glow: 217 91% 30%;
+    --primary-light: 217 91% 35%;
 
     --secondary: 240 5% 96%;
     --secondary-foreground: 222 84% 15%;
@@ -55,6 +56,7 @@
 
     --shadow-glow: 0 0 40px hsl(217 91% 25% / 0.15);
     --shadow-card: 0 4px 20px hsl(217 91% 25% / 0.1);
+    --shadow-card-dark: 0 8px 32px hsl(217 91% 25% / 0.3);
     --shadow-dropdown: 0 10px 40px hsl(217 91% 25% / 0.15);
 
     --radius: 0.75rem;

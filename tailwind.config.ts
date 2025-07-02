@@ -32,7 +32,8 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
 					muted: 'hsl(var(--primary-muted))',
-					glow: 'hsl(var(--primary-glow))'
+					glow: 'hsl(var(--primary-glow))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -93,6 +94,7 @@ export default {
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
 				'card': 'var(--shadow-card)',
+				'card-dark': 'var(--shadow-card-dark)',
 				'dropdown': 'var(--shadow-dropdown)'
 			},
 			keyframes: {

@@ -42,11 +42,11 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-navy p-4">
-      <Card className="w-full max-w-md shadow-card">
+      <Card className="w-full max-w-md shadow-card-dark">
         <CardHeader className="text-center">
           <div className="flex justify-center items-center gap-3 mb-4">
-            <span className="text-4xl" style={{ color: 'hsl(217 91% 25%)' }}>🫐</span>
-            <h1 className="text-3xl font-poppins font-black" style={{ color: 'hsl(217 91% 25%)' }}>Mirtilo</h1>
+            <span className="text-4xl text-primary-light">🫐</span>
+            <h1 className="text-3xl font-poppins font-black text-primary">Mirtilo</h1>
           </div>
           <CardDescription>
             Sistema de Gestão de Condomínios
