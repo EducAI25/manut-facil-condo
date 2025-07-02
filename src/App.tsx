@@ -16,7 +16,6 @@ import Financial from "./pages/Financial";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
-import Support from "./pages/Support";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +27,7 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/auth" element={<Auth />} />
-              <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+              <Route element={<ProtectedRoute><Layout>{null}</Layout></ProtectedRoute>}>
                 <Route index element={<Index />} />
                 <Route path="assets" element={<Assets />} />
                 <Route path="maintenance" element={<Maintenance />} />
@@ -37,7 +36,6 @@ const App = () => {
                 <Route path="common-areas" element={<CommonAreas />} />
                 <Route path="financial" element={<Financial />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path="support" element={<Support />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

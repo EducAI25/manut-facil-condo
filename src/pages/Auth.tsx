@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -8,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import BlueberryLogo from '@/assets/blueberry-logo.svg';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
@@ -45,8 +45,8 @@ export default function Auth() {
       <Card className="w-full max-w-md shadow-card-dark">
         <CardHeader className="text-center">
           <div className="flex justify-center items-center gap-3 mb-4">
-            <span className="text-4xl text-primary-light">🫐</span>
-            <h1 className="text-3xl font-poppins font-black text-primary">Mirtilo</h1>
+            <span className="flex items-center justify-center"><img src={BlueberryLogo} alt="Logo Mirtilo" className="w-10 h-10" /></span>
+            <h1 className="text-3xl font-poppins font-black text-blue-900">Mirtilo</h1>
           </div>
           <CardDescription>
             Sistema de Gestão de Condomínios

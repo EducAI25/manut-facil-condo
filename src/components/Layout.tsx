@@ -1,13 +1,13 @@
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
 import { User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
+import BlueberryLogo from '@/assets/blueberry-logo.svg';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
@@ -34,9 +34,9 @@ export function Layout({ children }: LayoutProps) {
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-muted-foreground hover:text-foreground lg:hidden" />
               <div className="flex items-center gap-3">
-                <span className="text-2xl text-primary-light">🫐</span>
+                <span className="flex items-center justify-center"><img src={BlueberryLogo} alt="Logo Mirtilo" className="w-8 h-8" /></span>
                 <div>
-                  <h1 className="text-xl font-poppins font-black text-primary">Mirtilo</h1>
+                  <h1 className="text-xl font-poppins font-black text-blue-900">Mirtilo</h1>
                   <p className="text-xs text-muted-foreground">Gestão de Condomínios</p>
                 </div>
               </div>
@@ -64,10 +64,9 @@ export function Layout({ children }: LayoutProps) {
               </div>
             )}
           </header>
-          
           {/* Main Content */}
           <main className="flex-1 p-4 sm:p-6 bg-gradient-hero">
-            {children}
+            <Outlet />
           </main>
         </div>
       </div>

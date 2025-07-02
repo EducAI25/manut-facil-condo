@@ -1,11 +1,7 @@
-
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -22,42 +18,50 @@ import {
   User,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import BlueberryLogo from '@/assets/blueberry-logo.svg';
 
 const menuItems = [
   {
     title: "Dashboard",
     url: "/",
     icon: Home,
+    description: "Visão geral do sistema"
   },
   {
     title: "Ativos",
     url: "/assets",
     icon: Package,
+    description: "Gerenciar bens do condomínio"
   },
   {
     title: "Manutenções",
     url: "/maintenance",
     icon: Wrench,
+    description: "Chamados e manutenções"
   },
   {
     title: "Fornecedores",
     url: "/suppliers",
     icon: Users,
-  },
-  {
-    title: "Financeiro",
-    url: "/financial",
-    icon: DollarSign,
+    description: "Cadastro de fornecedores"
   },
   {
     title: "Áreas Comuns",
     url: "/common-areas",
     icon: MapPin,
+    description: "Reservas e áreas comuns"
+  },
+  {
+    title: "Financeiro",
+    url: "/financial",
+    icon: DollarSign,
+    description: "Controle financeiro"
   },
   {
     title: "Relatórios",
     url: "/reports",
     icon: BarChart3,
+    description: "Relatórios e análises"
   },
 ];
 
@@ -67,46 +71,41 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border p-4">
-        <div className="flex items-center gap-3">
-          <span className="text-lg text-primary-light">🫐</span>
+        <div className="flex items-center gap-4">
+          <span className="flex items-center justify-center">
+            <img src={BlueberryLogo} alt="Logo Mirtilo" className="w-14 h-14" />
+          </span>
           <div>
-            <h2 className="font-poppins font-black text-primary">Mirtilo</h2>
+            <h2 className="font-poppins font-black text-blue-900 text-xl">Mirtilo</h2>
             <p className="text-xs text-sidebar-foreground/70">Gestão de Condomínios</p>
           </div>
         </div>
       </SidebarHeader>
-      
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Navegação</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className="w-full justify-start"
-                  >
-                    <Link to={item.url} className="flex items-center gap-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+      <SidebarContent className="px-2">
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                isActive={location.pathname === item.url}
+                className="w-full justify-start group"
+              >
+                <Link to={item.url} className="flex items-center gap-3 p-2 rounded-md transition-colors">
+                  <item.icon className="h-4 w-4 text-blue-600 group-hover:text-blue-800" />
+                  <span className="text-sm font-medium">{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       </SidebarContent>
-
       <SidebarFooter className="border-t border-sidebar-border p-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/profile" className="flex items-center gap-3">
-                <User className="h-4 w-4" />
-                <span>Perfil</span>
+              <Link to="/profile" className="flex items-center gap-3 p-2 rounded-md transition-colors">
+                <User className="h-4 w-4 text-blue-600" />
+                <span className="text-sm">Perfil</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

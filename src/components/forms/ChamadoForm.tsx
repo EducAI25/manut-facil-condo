@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useMaintenance } from '@/hooks/useMaintenance';
 import { useAuth } from '@/hooks/useAuth';
 import { AlertCircle } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const prioridades = [
   { value: 'low', label: 'Baixa' },
@@ -37,6 +38,7 @@ const locaisOcorrido = [
 export function ChamadoForm() {
   const { createRequest } = useMaintenance();
   const { user } = useAuth();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     title: '',
     priority: '',
@@ -47,23 +49,60 @@ export function ChamadoForm() {
     description: '',
     data_ocorrido: '',
     nome_solicitante: user?.email || '',
-    unidade_solicitante: 'Apto 101', // Seria preenchido automaticamente do perfil do usuário
+    unidade_solicitante: 'Apto 101',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormError(null);
+
+    // Validação manual dos campos obrigatórios
+    if (!formData.title || !formData.priority || !formData.category || !formData.local_ocorrido || !formData.description || !formData.data_ocorrido) {
+      setFormError('Preencha todos os campos obrigatórios.');
+      setIsSubmitting(false);
+      return;
+    }
+    if (formData.local_ocorrido === 'Apartamento' && !formData.unidade_ocorrido) {
+      setFormError('Informe a unidade do ocorrido.');
+      setIsSubmitting(false);
+      return;
+    }
+    if ((formData.local_ocorrido === 'Área Comum' || formData.local_ocorrido === 'Outro') && !formData.especificar_local) {
+      setFormError('Especifique o local do ocorrido.');
+      setIsSubmitting(false);
+      return;
+    }
 
     const requestData = {
-      ...formData,
-      requested_date: new Date().toISOString().split('T')[0],
+      title: formData.title,
+      priority: formData.priority,
+      category: formData.category,
+      description: formData.description,
       status: 'open',
       location: formData.local_ocorrido === 'Apartamento' ? formData.unidade_ocorrido : formData.especificar_local,
+      requested_date: formData.data_ocorrido.split('T')[0],
+      // Os demais campos opcionais não são enviados
     };
 
-    await createRequest(requestData);
-    
+    const { error } = await createRequest(requestData);
+    if (error) {
+      setFormError(error.message || 'Erro ao abrir chamado.');
+      toast({
+        title: 'Erro',
+        description: error.message || 'Erro ao abrir chamado.',
+        variant: 'destructive',
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    toast({
+      title: 'Sucesso',
+      description: 'Chamado aberto com sucesso!',
+    });
     // Reset form
     setFormData({
       title: '',
@@ -77,7 +116,6 @@ export function ChamadoForm() {
       nome_solicitante: user?.email || '',
       unidade_solicitante: 'Apto 101',
     });
-    
     setIsSubmitting(false);
   };
 
@@ -101,6 +139,9 @@ export function ChamadoForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {formError && (
+          <div className="mb-4 text-red-600 text-sm font-semibold">{formError}</div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Informações Básicas */}
           <div className="space-y-4">
