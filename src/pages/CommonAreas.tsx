@@ -14,6 +14,8 @@ import {
   AlertCircle,
   Filter
 } from "lucide-react";
+import { ReservaEspecificaForm } from "@/components/forms/ReservaEspecificaForm";
+import { useState } from "react";
 
 const commonAreas = [
   {
@@ -135,6 +137,8 @@ const upcomingEvents = [
 ];
 
 export default function CommonAreas() {
+  const [showReservaForm, setShowReservaForm] = useState(false);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "disponível":
@@ -171,11 +175,20 @@ export default function CommonAreas() {
           <h1 className="text-3xl font-bold text-foreground">Áreas Comuns</h1>
           <p className="text-muted-foreground">Gestão e agendamento de espaços compartilhados</p>
         </div>
-        <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
+        <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300" onClick={() => setShowReservaForm(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Nova Reserva
         </Button>
       </div>
+      {/* Formulário de nova reserva */}
+      {showReservaForm && (
+        <div className="bg-card p-6 rounded-lg shadow-md border border-border">
+          <ReservaEspecificaForm />
+          <div className="flex justify-end mt-4">
+            <Button variant="outline" onClick={() => setShowReservaForm(false)}>Cancelar</Button>
+          </div>
+        </div>
+      )}
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
